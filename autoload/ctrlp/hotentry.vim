@@ -21,7 +21,7 @@ endif
 
 function! ctrlp#hotentry#init()
   let url = printf("http://b.hatena.ne.jp/search/tag?q=%s&users=%d&mode=rss",
-  \  webapi#http#encodeURIComponent(s:word), 3)
+  \  webapi#http#encodeURIComponent(s:word), get(g:, 'ctrlp#hotentry#users', 3))
   let s:feed = webapi#feed#parseURL(url)
   return map(copy(s:feed), 'v:val.title')
 endfunc
