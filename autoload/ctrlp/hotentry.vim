@@ -1,5 +1,5 @@
 if exists('g:loaded_ctrlp_hotentry') && g:loaded_ctrlp_hotentry
-	finish
+  finish
 endif
 let g:loaded_ctrlp_hotentry = 1
 
@@ -9,14 +9,14 @@ let s:hotentry_var = {
 \  'accept': 'ctrlp#hotentry#accept',
 \  'lname':  'hotentry',
 \  'sname':  'hotentry',
-\  'type':   'feed',
+\  'type':   'path',
 \  'sort':   0,
 \}
 
 if exists('g:ctrlp_ext_vars') && !empty(g:ctrlp_ext_vars)
-	let g:ctrlp_ext_vars = add(g:ctrlp_ext_vars, s:hotentry_var)
+  let g:ctrlp_ext_vars = add(g:ctrlp_ext_vars, s:hotentry_var)
 else
-	let g:ctrlp_ext_vars = [s:hotentry_var]
+  let g:ctrlp_ext_vars = [s:hotentry_var]
 endif
 
 function! ctrlp#hotentry#init()
@@ -27,8 +27,9 @@ function! ctrlp#hotentry#init()
 endfunc
 
 function! ctrlp#hotentry#accept(mode, str)
-	silent call openbrowser#open(filter(copy(s:feed), 'v:val.title == a:str')[0].link)
-	call ctrlp#exit()
+  let url = filter(copy(s:feed), 'v:val.title == a:str')[0].link
+  call ctrlp#exit()
+  call openbrowser#open(url)
 endfunction
 
 function! ctrlp#hotentry#exit()
@@ -44,7 +45,7 @@ endfunction
 
 let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 function! ctrlp#hotentry#id()
-	return s:id
+  return s:id
 endfunction
 
 " vim:fen:fdl=0:ts=2:sw=2:sts=2
